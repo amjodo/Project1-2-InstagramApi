@@ -10,7 +10,7 @@ define('clientSecret', '0baa6ac1ab58432a8a288e8c956f7e7a');
 define('redirectURI', 'http://localhost/Amberapi/index.php');
 define('ImageDirectory', 'pics/');
 
-if isset(($_GET['code'])){
+if (isset($_GET['code'])){
 	$code = ($_GET['code']);
 	$url = 'https://api.instagram.com/oauth/access_token';
 	$access_token_settings = array('client_id' => clientID,
