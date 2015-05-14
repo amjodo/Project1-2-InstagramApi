@@ -1,0 +1,31 @@
+body {
+	background-image: url('http://img0.gtsstatic.com/wallpapers/f2a7556fcd9d8bb6b0275f8aea7b444f_large.jpeg');
+	/*background-color: orange;*/
+}
+
+/*#navbar{
+	position: fixed;
+	top: 10px;
+	left 50%;
+	margin-left: -245px;
+}
+*/
+#header{
+	position: relative;
+	top: -10px;
+	background-color: #3c4543;
+}
+
+ul{
+	position: fixed;
+	margin: -10px;
+}
+
+li{
+	display: inline;
+	border: 2px solid black;
+	font-family: Arial, sans-serif;
+	color: blue;
+	padding: 5px;
+	background-color: gray;
+}

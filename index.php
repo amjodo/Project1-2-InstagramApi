@@ -1,3 +1,4 @@
+
 <?php
 //Configuration for our PHP Server
 set_time_limit(0);
@@ -14,50 +15,53 @@ define('ImageDirectory', 'pics/');
 function connectToInstagram($url){
 	$ch = curl_init();
 
-	curl_setopt_array($ch, array){
+	curl_setopt_array($ch, array(
 		CURLOPT_URL => $url,
-		CURLOPT_RETURNTRANSFER => true;
-		CURLOPT_SSL_VERIFYPEER => false;
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_SSL_VERIFYHOST => 2,
-	});
+	));
 	$result = curl_exec($ch);
 	curl_close($ch);
 	return $result;
 }
 //function to get userID cause userName doesn't allow us to get pictures!
 function getUserID($userName){
-	$url = 'http://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID;
+	$url = 'https://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID;
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 
-	return $results['data']['0']['id'];//echoing out userID.
+	return $results['data'][0]['id'];//echoing out userID.
 }
 //Function to print out images onto screen
 function printImages($userID){
 	$url ='https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=5';
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
+
+	//print_r($results);
+
 	//Parse through the information one by one.
 	foreach ($results['data'] as $items) {
 		$image_url = $items['images']['low_resolution']['url']; //going to go through all of my results and give myself back the URL of those pictures because we want to save it in the PHP Server.
-		echo '<img src=" '.$image_url.' "/>br/>';
+		echo '<img src=" '.$image_url.' "/><br/>';
 		//calling a function to save that $image_url
 		savePictures($image_url);
 	}
 }
 //Function to save image to server
-function savePictures($userID){
+function savePictures($image_url){
 	echo $image_url .'<br>';
 	$filename = basename($image_url); //the filename is what we are storing. basename is the PHP built that we are using to store $image_url
 	echo $filename. '<br>';
 
 	$destination = ImageDirectory . $filename; //making sure that the image doesn't exist in the storage.
-	file_get_contents($destination, file_get_contents($image_url)); //gets and grabs an image file and stores it into our server
+	file_put_contents($destination, file_get_contents($image_url)); //gets and grabs an image file and stores it into our server
 }
 
 
 if (isset($_GET['code'])){
-	$code = ($_GET['code']);
+	$code = $_GET['code'];
 	$url = 'https://api.instagram.com/oauth/access_token';
 	$access_token_settings = array('client_id' => clientID,
 									'client_secret' => clientSecret,
@@ -76,33 +80,38 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //but in live work-production
 $result = curl_exec($curl);
 curl_close($curl);
 
+//print_r($result);
+
 $results = json_decode($result, true);
 
-$username = $results['user']['username'];
+$userName = $results['user']['username'];
+
+
 
 $userID = getUserID($userName);
+printImages($userID);
 }
 else{
 ?>	
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Untitled</title>
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="author" href="humans.txt">
-	</head>
-	<body>
-		<!--creating a login for people to go to Instagram API
-		creating a link to instagram through oauth/authorizing the account
-		after setting client_id to blank in the begining, along with redirect_uri then you have to echo it out from the constants.-->
-		<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">Login</a>
-		<script type="js/main.js"></script>
-	</body>
-</html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	<div id="header">
+		<div id="navbar">
+		<ul>
+			<li>Home</li>
+			<li>Instagram</li>
+			<li><a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">Insta Login</a></li>
+			<li>Contact</li>
+		</ul>
+		
+		</div>	
+	</div>
+</head>
+<body>
 <?php
 }
 ?>
