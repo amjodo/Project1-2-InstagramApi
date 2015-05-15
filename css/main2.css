@@ -1,0 +1,10 @@
+body{
+	/*background-color: blue;*/
+	background-image: url('https://download.unsplash.com/37/ic1dX3kBQjGNaPQb8Xel_1920%20x%201280.jpg');
+	 position: absolute;
+    top: 1%;
+    left: 35%;
+    background-repeat: repeat-y;
+    background-attachment: fixed
+    /*margin-right: -50%;*/
+}

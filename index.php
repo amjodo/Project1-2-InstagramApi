@@ -1,4 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/main2.css"/>
+	<title></title>
+</head>
+<body>
 
+</body>
+</html>
 <?php
 //Configuration for our PHP Server
 set_time_limit(0);
@@ -51,7 +60,7 @@ function printImages($userID){
 }
 //Function to save image to server
 function savePictures($image_url){
-	echo $image_url .'<br>';
+	return $image_url .'<br>';
 	$filename = basename($image_url); //the filename is what we are storing. basename is the PHP built that we are using to store $image_url
 	echo $filename. '<br>';
 
@@ -97,6 +106,12 @@ else{
 <!DOCTYPE html>
 <html>
 <head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="author" href="humans.txt">
+		<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700' rel='stylesheet' type='text/css'>
+		<!--link href='http://fonts.googleapis.com/css?family=Playfair+Display:900' rel='stylesheet' type='text/css'-->
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<div id="header">
@@ -112,6 +127,11 @@ else{
 	</div>
 </head>
 <body>
+<!--creating a login for people to go to Instagram API
+		creating a link to instagram through oauth/authorizing the account
+		after setting client_id to blank in the begining, along with redirect_uri then you have to echo it out from the constants.-->
+<script type="js/main.js"></script>
+</body>
 <?php
 }
 ?>
