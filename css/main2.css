@@ -5,6 +5,16 @@ body{
     top: 1%;
     left: 35%;
     background-repeat: repeat-y;
-    background-attachment: fixed
+    background-attachment: fixed;
     /*margin-right: -50%;*/
+}
+
+img{
+	border: 2px solid white;
+  	margin-bottom: 10px;
+  	display: inline-block;
+}
+
+#pics{
+
 }
